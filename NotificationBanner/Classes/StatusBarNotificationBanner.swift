@@ -51,10 +51,9 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
         contentView.addSubview(titleLabel!)
 
         titleLabel!.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(heightAdjustment)
+            make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-5)
-            make.bottom.equalToSuperview()
         }
 
         updateMarqueeLabelsDurations()

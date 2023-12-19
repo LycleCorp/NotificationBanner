@@ -10,8 +10,8 @@ let package = Package(
         .library(name: "NotificationBannerSwift", targets: ["NotificationBannerSwift"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SnapKit/SnapKit", from: "5.0.1"),
-        .package(url: "https://github.com/cbpowell/MarqueeLabel", from: "4.0.1")
+        .package(url: "https://github.com/SnapKit/SnapKit", from: "5.6.0"),
+        .package(url: "https://github.com/cbpowell/MarqueeLabel", from: "4.4.0")
     ],
     targets: [
         .target(
