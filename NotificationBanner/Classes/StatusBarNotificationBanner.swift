@@ -41,22 +41,47 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
 
     override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
         super.init(style: style, colors: colors)
-
+        autoLayoutLabelComponents()
+        updateMarqueeLabelsDurations()
+    }
+    
+    private func autoLayoutLabelComponents() {
+        
+        let spacer = UIView()
+        spacer.backgroundColor = backgroundColor
+        spacer.snp.makeConstraints { make in
+            make.height.equalTo(heightAdjustment)
+        }
+        
         titleLabel = MarqueeLabel()
         (titleLabel as! MarqueeLabel).animationDelay = 2
         (titleLabel as! MarqueeLabel).type = .leftRight
         titleLabel!.font = UIFont.systemFont(ofSize: 12.5, weight: UIFont.Weight.bold)
         titleLabel!.textAlignment = .center
         titleLabel!.textColor = .white
-        contentView.addSubview(titleLabel!)
+        titleLabel?.backgroundColor = backgroundColor
+        
+        let spacerAndLabelVStack: UIStackView = {
+           let vStack = UIStackView(arrangedSubviews: [
+            spacer,
+            titleLabel!
+           ])
+            vStack.axis = .vertical
+            vStack.alignment = .fill
+            vStack.spacing = 0
+            vStack.distribution = .fill
+            return vStack
+        }()
+    
+        contentView.addSubview(spacerAndLabelVStack)
+        titleLabel?.translatesAutoresizingMaskIntoConstraints = false
 
-        titleLabel!.snp.makeConstraints { (make) in
+        spacerAndLabelVStack.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(5)
-            make.right.equalToSuperview().offset(-5)
         }
-
-        updateMarqueeLabelsDurations()
+        
     }
 
     public convenience init(
